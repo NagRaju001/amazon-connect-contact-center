@@ -16,7 +16,7 @@ async function getCustomerByPhone(phoneNumber) {
 }
 
 exports.handler = async (event) => {
-  console.log("Lex event v2:", JSON.stringify(event, null, 2));
+  console.log("Lex event v3:", JSON.stringify(event, null, 2));
 
   const intentName = event.sessionState.intent.name;
   const slots = event.sessionState.intent.slots;
