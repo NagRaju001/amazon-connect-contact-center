@@ -142,3 +142,30 @@ resource "aws_lambda_permission" "api_gw" {
 output "api_url" {
   value = aws_apigatewayv2_api.http_api.api_endpoint
 }
+# connect-greeting Lambda
+resource "aws_lambda_function" "connect_greeting" {
+  function_name = "connect-greeting"
+  role          = aws_iam_role.lambda_role.arn
+  handler       = "src/handler.handler"
+  runtime       = "nodejs20.x"
+
+  filename         = "../../services/lambdas/connect-greeting/function.zip"
+  source_code_hash = filebase64sha256("../../services/lambdas/connect-greeting/function.zip")
+
+  timeout = 10
+
+  environment {
+    variables = {
+      CUSTOMERS_TABLE = "Customers"
+    }
+  }
+}
+
+# Allow Amazon Connect to invoke connect-greeting Lambda
+resource "aws_lambda_permission" "connect_greeting_permission" {
+  statement_id  = "AllowAmazonConnectInvoke"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.connect_greeting.function_name
+  principal     = "connect.amazonaws.com"
+}
+
