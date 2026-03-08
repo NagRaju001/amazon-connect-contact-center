@@ -29,6 +29,11 @@ jobs:
           cd services/lambdas/lex-hook
           npm install
           zip -r function.zip src/ node_modules/ package.json
+      - name: Install and zip connect-greeting
+        run: |
+          cd services/lambdas/connect-greeting
+          npm install
+          zip -r function.zip src/ node_modules/ package.json
       - name: Deploy api-services Lambda
         run: |
           aws lambda update-function-code \
@@ -52,3 +57,17 @@ jobs:
           aws lambda update-function-configuration \
             --function-name lex-hook \
             --environment "Variables={API_BASE_URL=${{ secrets.API_BASE_URL }}}"
+      - name: Deploy connect-greeting Lambda
+        run: |
+          aws lambda update-function-code \
+            --function-name connect-greeting \
+            --zip-file fileb://services/lambdas/connect-greeting/function.zip
+      - name: Wait for connect-greeting to be ready
+        run: |
+          aws lambda wait function-updated \
+            --function-name connect-greeting
+      - name: Set connect-greeting environment variables
+        run: |
+          aws lambda update-function-configuration \
+            --function-name connect-greeting \
+            --environment "Variables={CUSTOMERS_TABLE=Customers}"
