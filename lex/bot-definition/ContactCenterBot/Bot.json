@@ -1,0 +1,1 @@
+{"name":"ContactCenterBot","version":"DRAFT","description":"Bot for handling order status, returns and agent escalation","identifier":"GYRMI028ZL","errorLogSettings":{"enabled":false},"dataPrivacy":{"childDirected":false},"idleSessionTTLInSeconds":300}
