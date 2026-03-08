@@ -6,7 +6,7 @@
 ![Node.js](https://img.shields.io/badge/Node.js-20.x-339933?style=flat&logo=nodedotjs)
 ![Terraform](https://img.shields.io/badge/Terraform-IaC-7B42BC?style=flat&logo=terraform)
 ![License](https://img.shields.io/badge/License-MIT-blue?style=flat)
-![Build](https://github.com/NagRaju001/amazon-connect-contact-center-/actions/workflows/deploy.yml/badge.svg)
+![Build](https://github.com/NagRaju001/amazon-connect-contact-center/actions/workflows/deploy.yml/badge.svg)
 
 ---
 
