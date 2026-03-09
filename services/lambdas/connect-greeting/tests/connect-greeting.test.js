@@ -24,44 +24,44 @@ function assert(condition, message) {
 async function mockHandler(event, mockDb) {
   const phoneNumber = event?.Details?.ContactData?.CustomerEndpoint?.Address;
 
-  if (!phoneNumber) return { firstName: "there" };
+  if (!phoneNumber) return { customerName: "there" };
 
   const customer = mockDb[phoneNumber];
 
-  if (!customer) return { firstName: "there" };
+  if (!customer) return { customerName: "there" };
 
-  return { firstName: customer.firstName };
+  return { customerName: customer.customerName };
 }
 
 // ─── Tests ────────────────────────────────────────────────────────────────────
 
 const mockDb = {
-  "+12145550001": { customerId: "CUST1001", firstName: "John" },
-  "+12145550002": { customerId: "CUST1002", firstName: "Sarah" }
+  "+12145550001": { customerId: "CUST1001", customerName: "John" },
+  "+12145550002": { customerId: "CUST1002", customerName: "Sarah" }
 };
 
 (async () => {
-  test("returns firstName for known customer", async () => {
+  test("returns customerName for known customer", async () => {
     const event = { Details: { ContactData: { CustomerEndpoint: { Address: "+12145550001" } } } };
     const result = await mockHandler(event, mockDb);
-    assert(result.firstName === "John", `Expected John, got ${result.firstName}`);
+    assert(result.customerName === "John", `Expected John, got ${result.customerName}`);
   });
 
   test("returns 'there' for unknown phone number", async () => {
     const event = { Details: { ContactData: { CustomerEndpoint: { Address: "+19999999999" } } } };
     const result = await mockHandler(event, mockDb);
-    assert(result.firstName === "there", `Expected there, got ${result.firstName}`);
+    assert(result.customerName === "there", `Expected there, got ${result.customerName}`);
   });
 
   test("returns 'there' when phone number is missing", async () => {
     const event = { Details: { ContactData: { CustomerEndpoint: {} } } };
     const result = await mockHandler(event, mockDb);
-    assert(result.firstName === "there", `Expected there, got ${result.firstName}`);
+    assert(result.customerName === "there", `Expected there, got ${result.customerName}`);
   });
 
   test("returns 'there' when event is empty", async () => {
     const result = await mockHandler({}, mockDb);
-    assert(result.firstName === "there", `Expected there, got ${result.firstName}`);
+    assert(result.customerName === "there", `Expected there, got ${result.customerName}`);
   });
 
   console.log(`\n${passed} passed, ${failed} failed`);

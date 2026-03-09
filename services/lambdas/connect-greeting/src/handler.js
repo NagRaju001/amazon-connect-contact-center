@@ -14,7 +14,7 @@ exports.handler = async (event) => {
 
     if (!phoneNumber) {
       console.warn("No phone number found in event, using generic greeting");
-      return { firstName: "there" };
+      return { customerName: "there" };
     }
 
     const result = await docClient.send(
@@ -32,14 +32,14 @@ exports.handler = async (event) => {
     if (result.Items && result.Items.length > 0) {
       const customer = result.Items[0];
       console.log("Customer found:", customer.customerId);
-      return { firstName: customer.firstName };
+      return { customerName: customer.customerName };
     }
 
     console.warn("No customer found for phone number:", phoneNumber);
-    return { firstName: "there" };
+    return { customerName: "there" };
 
   } catch (error) {
     console.error("Error looking up customer:", error);
-    return { firstName: "there" };
+    return { customerName: "there" };
   }
 };
