@@ -184,4 +184,87 @@ resource "aws_lambda_permission" "connect_greeting_permission" {
   function_name = aws_lambda_function.connect_greeting.function_name
   principal     = "connect.amazonaws.com"
 }
+# DynamoDB Tables
+resource "aws_dynamodb_table" "customers" {
+  name         = "Customers"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "customerId"
 
+  attribute {
+    name = "customerId"
+    type = "S"
+  }
+
+  attribute {
+    name = "email"
+    type = "S"
+  }
+
+  attribute {
+    name = "phoneNumber"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name            = "EmailIndex"
+    hash_key        = "email"
+    projection_type = "ALL"
+  }
+
+  global_secondary_index {
+    name            = "PhoneIndex"
+    hash_key        = "phoneNumber"
+    projection_type = "ALL"
+  }
+
+  deletion_protection_enabled = true
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "aws_dynamodb_table" "orders" {
+  name         = "Orders"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "orderId"
+
+  attribute {
+    name = "orderId"
+    type = "S"
+  }
+
+  deletion_protection_enabled = true
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "aws_dynamodb_table" "returns" {
+  name         = "Returns"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "returnId"
+
+  attribute {
+    name = "returnId"
+    type = "S"
+  }
+
+  attribute {
+    name = "orderId"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name            = "OrderIndex"
+    hash_key        = "orderId"
+    projection_type = "ALL"
+  }
+
+  deletion_protection_enabled = true
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
