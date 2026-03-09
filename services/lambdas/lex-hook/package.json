@@ -4,7 +4,7 @@
   "description": "Lex fulfillment Lambda for Amazon Connect contact center",
   "main": "src/handler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node tests/lex-hook.test.js"
   },
   "keywords": [],
   "author": "",

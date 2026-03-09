@@ -4,7 +4,7 @@
   "description": "Order and customer API services for Amazon Connect contact center",
   "main": "src/handler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node tests/api-services.test.js"
   },
   "keywords": [],
   "author": "",

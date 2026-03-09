@@ -4,7 +4,7 @@
   "description": "Looks up customer by phone number (ANI) and returns first name for personalized greeting in Amazon Connect",
   "main": "src/handler.js",
   "scripts": {
-    "test": "node tests/handler.test.js"
+    "test": "node tests/connect-greeting.test.js"
   },
   "keywords": [],
   "author": "",
