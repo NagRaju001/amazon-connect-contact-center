@@ -1,12 +1,26 @@
 terraform {
   backend "s3" {
+    # Update these values to match your environment before running terraform init
     bucket = "nagaraju-terraform-state"
     key    = "contact-center/terraform.tfstate"
     region = "us-east-1"
   }
 }
+
+variable "aws_region" {
+  description = "AWS region to deploy resources"
+  type        = string
+  default     = "us-east-1"
+}
+
+variable "terraform_state_bucket" {
+  description = "S3 bucket name for Terraform state"
+  type        = string
+  default     = "nagaraju-terraform-state"
+}
+
 provider "aws" {
-  region = "us-east-1"
+  region = var.aws_region
 }
 variable "api_base_url" {
   description = "API Gateway base URL"
